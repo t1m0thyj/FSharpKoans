@@ -60,6 +60,22 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let splitCommas (x:string) =
+            x.Split([|','|])
+        
+        let diff x y =
+            abs (x - y)
+        
+        let parse = System.Double.Parse
+        
+        let getSortValue (row:string[]) =
+            diff (parse row.[1]) (parse row.[4])
+        
+        let maxRow =
+            stockData.Tail
+            |> List.map splitCommas
+            |> List.maxBy getSortValue
+
+        let result = maxRow.[0]
         
         AssertEquality "2012-03-13" result
